@@ -1,4 +1,4 @@
-# Discord Easy Interactions
+# Discord Easy Interactions (1.0.0)
 > 💥 Easy to use discord interactions with callback system. onClick etc.
 
 > Gonna update the readme later.
