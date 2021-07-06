@@ -1,11 +1,14 @@
 import { MessageComponent, multipleImport } from "discord-buttons";
 import { Client } from "discord.js";
+import MessageDropDown from "./MessageDropDown";
+import MessageButton from "./MessageButton";
 
-export const listeners = {
+const listeners = {
   clickMenu: new Set<(data: MessageComponent) => any>(),
   clickButton: new Set<(data: MessageComponent) => any>()
 };
-export function registerClient(client: Client) {
+
+function registerClient(client: Client) {
   if ((client as any)._easyInteractions) return false;
 
   (client as any)._easyInteractions = true;
@@ -25,3 +28,7 @@ export function registerClient(client: Client) {
 
   return true;
 }
+
+
+export { listeners, registerClient, MessageDropDown, MessageButton };
+export default { listeners, registerClient, MessageDropDown, MessageButton };

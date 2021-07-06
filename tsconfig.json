@@ -3,7 +3,9 @@
     "module": "commonjs",
     "target": "es2020",
     "jsx": "preserve",
-    "sourceMap": true
+    "sourceMap": false,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "out",
   },
   "exclude": [
     "node_modules",
