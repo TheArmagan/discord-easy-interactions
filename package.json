@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "discord-buttons": "^4.0.0",
+    "discord.js": "^12.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0"
+  },
+  "name": "discord-easy-interactions",
+  "version": "1.0.0",
+  "description": "Discord easy interaction with callbacks.",
+  "main": "index.js",
+  "repository": "https://github.com/TheArmagan/discord-easy-interactions",
+  "author": "Kıraç Armağan Önal",
+  "license": "GPLv3-or-later",
+  "private": false
+}
