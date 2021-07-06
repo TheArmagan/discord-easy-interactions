@@ -1,4 +1,4 @@
-import EasyInteractions from ".";
+import EasyInteractions from "./src";
 import * as Discord from "discord.js";
 
 

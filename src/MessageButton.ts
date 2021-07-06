@@ -33,12 +33,14 @@ export default class MessageButton {
     let id = data.id || `ei:b:${Math.round((Math.random() * 281474976710655)).toString(36)}`;
     this.custom_id = id;
 
-    this.#onClick = data.onClick;
-    this.#buttonListener = (data) => {
-      if (data.id != id) return;
-      if (typeof this.#onClick == "function") this.#onClick(data, this);
+    if (typeof data.onClick == "function") {
+      this.#onClick = data.onClick;
+      this.#buttonListener = (data) => {
+        if (data.id != id) return;
+        this.#onClick(data, this);
+      }
+      listeners.clickButton.add(this.#buttonListener);
     }
-    listeners.clickButton.add(this.#buttonListener);
   }
 
   get disposed() {

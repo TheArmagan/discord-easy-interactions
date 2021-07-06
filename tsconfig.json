@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
+    "lib": ["es2020"],
     "module": "commonjs",
-    "target": "es2020",
+    "target": "ES6",
     "jsx": "preserve",
-    "sourceMap": false,
     "allowSyntheticDefaultImports": true,
-    "outDir": "out",
+    "outDir": "lib",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "declarationDir": "lib",
+    "declaration": true
   },
   "exclude": [
     "node_modules",
     "**/node_modules/*"
-  ]
+  ],
+  "include": ["src/**/*.ts"]
 }

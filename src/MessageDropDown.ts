@@ -39,15 +39,21 @@ export default class MessageDropDown {
     this.custom_id = id;
     this.#onUpdate = data.onUpdate;
 
-    this.#menuListener = (data) => {
-      if (data.id != id) return;
-      if (typeof this.#onUpdate == "function") this.#onUpdate(data, this);
-      data.values?.forEach(value => {
-        let item = this.options.find(i => i.value == value);
-        if (typeof item.onSelect == "function") item.onSelect(data, this);
-      });
-    };
-    listeners.clickMenu.add(this.#menuListener);
+    if (
+      typeof data.onUpdate == "function" ||
+      (this.options.findIndex((opt) => (typeof opt.onSelect == "function")) != -1)
+    ) {
+      this.#menuListener = (data) => {
+        if (data.id != id) return;
+        if (typeof this.#onUpdate == "function") this.#onUpdate(data, this);
+        data.values?.forEach(value => {
+          let item = this.options.find(i => i.value == value);
+          if (typeof item.onSelect == "function") item.onSelect(data, this);
+        });
+      };
+      listeners.clickMenu.add(this.#menuListener);
+    }
+
   }
 
   get disposed() {

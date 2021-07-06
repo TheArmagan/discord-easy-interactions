@@ -12,5 +12,6 @@
   "repository": "https://github.com/TheArmagan/discord-easy-interactions",
   "author": "Kıraç Armağan Önal",
   "license": "GPLv3-or-later",
-  "private": false
+  "private": false,
+  "main": "./lib/index.js"
 }
