@@ -22,7 +22,7 @@ client.on("message", (msg) => {
       },
       options: [
         {
-          label: "1",
+          label: "Wow",
           value: "1",
           emoji: "😍",
           onSelect(data, dd) {
@@ -31,7 +31,7 @@ client.on("message", (msg) => {
           }
         },
         {
-          label: "2",
+          label: "Cringe",
           value: "2",
           emoji: "😂",
           onSelect(data, dd) {
@@ -40,7 +40,7 @@ client.on("message", (msg) => {
           }
         },
         {
-          label: "3",
+          label: "Dispose",
           value: "3",
           emoji: "💥",
           onSelect(data, dd) {
@@ -50,14 +50,19 @@ client.on("message", (msg) => {
         }
       ]
     });
-    msg.reply("hıoi", inter);
+    channel.send("HI!", inter);
     console.log(inter)
   } else if (msg.cleanContent == "eiyarr2") {
+    let num = 0;
     let inter = new EasyInteractions.MessageButton({
-      label: "0",
-      id: "yarrak"
-    })
-    msg.reply("hıoi2", inter);
+      label: `${++num}+1`,
+      onClick(data, b) {
+        b.label = `${++num}+1`;
+        data.message.edit("Hello!", b);
+        data.reply.defer(true);
+      }
+    });
+    msg.reply("Hello!", inter);
     console.log(inter)
   }
 })
