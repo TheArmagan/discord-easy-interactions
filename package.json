@@ -7,7 +7,7 @@
     "@types/node": "^16.0.0"
   },
   "name": "discord-easy-interactions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "💥 Easy to use discord interactions with callback system. onClick etc.",
   "repository": "https://github.com/TheArmagan/discord-easy-interactions",
   "author": "Kıraç Armağan Önal",

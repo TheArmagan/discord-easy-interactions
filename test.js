@@ -4,16 +4,6 @@ const EasyInteractions = require(".");
 const client = new Discord.Client();
 EasyInteractions.registerClient(client);
 
-client.on("ready", () => {
-  new EasyInteractions.MessageButton({
-    id: "yarrak",
-    onClick(data) {
-      data.reply.defer(true);
-      console.log("yarrak");
-    }
-  })
-})
-
 client.on("message", (msg) => {
   if (msg.cleanContent == "eiyarr") {
     let inter = new EasyInteractions.MessageDropDown({
