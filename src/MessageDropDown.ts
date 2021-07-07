@@ -1,11 +1,12 @@
 import { GuildButtonEmoji, MessageComponent } from "discord-buttons";
 import { listeners } from "./index";
+import { randomString } from "stuffs";
 
 interface MessageDropDownOption {
   description?: string;
   label: string;
   emoji?: string | GuildButtonEmoji;
-  value: string;
+  value?: string;
   onSelect?: (data: MessageComponent, dropdown: MessageDropDown) => void;
 }
 
@@ -33,9 +34,12 @@ export default class MessageDropDown {
     this.placeholder = data.placeholder ?? "Make a selection"
     this.min_values = data.minValues ?? 0;
     this.max_values = data.maxValues ?? 1;
-    this.options = data.options ?? []
+    this.options = (data.options ?? []).map((opt, index) => {
+      opt.value = opt.value || String(index+1);
+      return opt;
+    });
 
-    let id = data.id || `ei:dd:${Math.round((Math.random() * 281474976710655)).toString(36)}`;
+    let id = data.id || `ei:dd:${randomString(16)}`;
     this.custom_id = id;
     this.#onUpdate = data.onUpdate;
 

@@ -9,11 +9,11 @@ client.on("message", (msg) => {
     let inter = new EasyInteractions.MessageDropDown({
       onUpdate(data) {
         data.reply.defer(true);
+        data.values[0] 
       },
       options: [
         {
           label: "Wow",
-          value: "1",
           emoji: "😍",
           onSelect(data, dd) {
             console.log("1")
@@ -22,7 +22,6 @@ client.on("message", (msg) => {
         },
         {
           label: "Cringe",
-          value: "2",
           emoji: "😂",
           onSelect(data, dd) {
             console.log("1");
@@ -31,7 +30,6 @@ client.on("message", (msg) => {
         },
         {
           label: "Dispose",
-          value: "3",
           emoji: "💥",
           onSelect(data, dd) {
             data.message.edit("💥 disposed", null);
@@ -40,19 +38,19 @@ client.on("message", (msg) => {
         }
       ]
     });
-    channel.send("HI!", inter);
+    msg.channel.send("HI!", inter);
     console.log(inter)
   } else if (msg.cleanContent == "eiyarr2") {
     let num = 0;
     let inter = new EasyInteractions.MessageButton({
-      label: `${++num}+1`,
+      style: 1, // 
+      emoji: "❤", // Optional
+      label: `${++num}+1`, // Required
       onClick(data, b) {
-        b.label = `${++num}+1`;
-        data.message.edit("Hello!", b);
-        data.reply.defer(true);
+        data.clicker.user.tag
       }
     });
-    msg.reply("Hello!", inter);
+    msg.channel.send("Hello!", inter);
     console.log(inter)
   }
 })

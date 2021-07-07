@@ -3,7 +3,7 @@ interface MessageDropDownOption {
     description?: string;
     label: string;
     emoji?: string | GuildButtonEmoji;
-    value: string;
+    value?: string;
     onSelect?: (data: MessageComponent, dropdown: MessageDropDown) => void;
 }
 interface MessageDropDownConstructor {

@@ -5,6 +5,7 @@
     "target": "ES6",
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
+    "importHelpers": false,
     "outDir": "lib",
     "allowJs": true,
     "esModuleInterop": true,

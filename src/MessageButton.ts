@@ -1,5 +1,6 @@
 import { GuildButtonEmoji, MessageComponent, MessageButtonStyles } from "discord-buttons";
 import { listeners } from ".";
+import { randomString } from "stuffs";
 
 interface MessageButtonConstructor {
   style?: MessageButtonStyles;
@@ -30,7 +31,7 @@ export default class MessageButton {
     this.emoji = data.emoji || null;
     this.url = data.url;
     
-    let id = data.id || `ei:b:${Math.round((Math.random() * 281474976710655)).toString(36)}`;
+    let id = data.id || `ei:b:${randomString(16)}`;
     this.custom_id = id;
 
     if (typeof data.onClick == "function") {
