@@ -1,58 +1,68 @@
 const Discord = require("discord.js");
 const EasyInteractions = require(".");
-
-const client = new Discord.Client();
+const allIntents = new Discord.Intents(32767);
+const client = new Discord.Client({ intents:allIntents });
 EasyInteractions.registerClient(client);
 
 client.on("message", (msg) => {
   if (msg.cleanContent == "eiyarr") {
-    let inter = new EasyInteractions.MessageDropDown({
+    let inter = new EasyInteractions.EasyMessageDropDown({
       onUpdate(data) {
-        data.reply.defer(true);
-        data.values[0] 
+        //console.log(data.deferReply())
+        data.deferReply(true);
+       // data.values[0] 
       },
       options: [
         {
           label: "Wow",
-          emoji: "😍",
+          emoji: null,
           onSelect(data, dd) {
             console.log("1")
-            data.message.edit("😍");
+            data.editReply("😍");
           }
         },
         {
           label: "Cringe",
-          emoji: "😂",
+          emoji: {
+            name: "😂"
+          },
           onSelect(data, dd) {
             console.log("1");
-            data.message.edit("😂");
+            data.editReply("😂");
           }
         },
         {
           label: "Dispose",
-          emoji: "💥",
+          emoji: null,
           onSelect(data, dd) {
-            data.message.edit("💥 disposed", null);
+            //data.editReply("💥 disposed", null);
             dd.dispose();
           }
         }
       ]
     });
-    msg.channel.send("HI!", inter);
+    console.log(inter)
+    
+    const row = new Discord.MessageActionRow().addComponents(inter)
+    msg.channel.send({ content: 'Pong!', components: [row] });
     console.log(inter)
   } else if (msg.cleanContent == "eiyarr2") {
     let num = 0;
-    let inter = new EasyInteractions.MessageButton({
+    let inter = new EasyInteractions.EasyMessageButton({
       style: 1, // 
-      emoji: "❤", // Optional
+      emoji: {
+        name: "❤"
+      }, // Optional
       label: `${++num}+1`, // Required
       onClick(data, b) {
-        data.clicker.user.tag
+        console.log(data.clicker.user.tag)
       }
     });
-    msg.channel.send("Hello!", inter);
+    const row = new Discord.MessageActionRow().addComponents(inter)
+    msg.channel.send({ content: 'Pong!', components: [row] });
     console.log(inter)
   }
 })
+
 console.log("woooooooooooo")
-client.login("")
+client.login("Njc2ODQwMTU4MDc0NjM0MjQw.GhLyCp.0syq2An103dTUXCJReRjbt7uUe1ZbmWVVQzr5s")

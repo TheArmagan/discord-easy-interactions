@@ -10,7 +10,10 @@
     "allowJs": true,
     "esModuleInterop": true,
     "declarationDir": "lib",
-    "declaration": true
+    "declaration": true,
+    "skipDefaultLibCheck": true,
+    "types":[],
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
