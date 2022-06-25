@@ -1,29 +1,20 @@
-import { GuildButtonEmoji, MessageComponent } from "discord-buttons";
-interface MessageDropDownOption {
-    description?: string;
-    label: string;
-    emoji?: string | GuildButtonEmoji;
-    value?: string;
-    onSelect?: (data: MessageComponent, dropdown: MessageDropDown) => void;
+import { MessageSelectMenu, MessageSelectOption, SelectMenuInteraction } from "discord.js";
+interface SelectOption extends MessageSelectOption {
+    onSelect?: (data: SelectMenuInteraction, menu: EasyMessageDropDown) => void;
 }
-interface MessageDropDownConstructor {
+interface EasyMessageDropDownConstructor {
     placeholder?: string;
-    options?: MessageDropDownOption[];
+    options?: SelectOption[];
     minValues?: number;
     maxValues?: number;
-    onUpdate?: (data: MessageComponent, dropdown: MessageDropDown) => void;
+    onUpdate?: (data: SelectMenuInteraction, menu: EasyMessageDropDown) => void;
     id?: string;
 }
-export default class MessageDropDown {
-    #private;
-    type: number;
-    placeholder: string;
-    min_values: number;
-    max_values: number;
-    custom_id: string;
-    options: MessageDropDownOption[];
-    constructor(data: MessageDropDownConstructor);
-    get disposed(): boolean;
+export default class EasyMessageDropDown extends MessageSelectMenu {
+    onUpdate?: (data: SelectMenuInteraction, menu: EasyMessageDropDown) => void;
+    menuListener?: (data: SelectMenuInteraction) => void;
+    disposed: boolean;
+    constructor(data: EasyMessageDropDownConstructor);
     dispose(): boolean;
 }
 export {};

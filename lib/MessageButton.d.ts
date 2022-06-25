@@ -1,24 +1,17 @@
-import { GuildButtonEmoji, MessageComponent, MessageButtonStyles } from "discord-buttons";
+import { APIPartialEmoji } from "discord-api-types/v10";
+import { ButtonInteraction, MessageButton } from "discord.js";
 interface MessageButtonConstructor {
-    style?: MessageButtonStyles;
+    style?: "PRIMARY" | "SECONDARY" | "SUCCESS" | "DANGER" | "LINK";
     label: string;
     disabled?: boolean;
-    emoji?: GuildButtonEmoji;
+    emoji?: APIPartialEmoji;
     url?: string;
     id?: string;
-    onClick?: (data: MessageComponent, button: MessageButton) => any;
+    onClick?: (data: ButtonInteraction, menu: EasyMessageButton) => void;
 }
-export default class MessageButton {
-    #private;
-    type: number;
-    style: MessageButtonStyles;
-    label: string;
-    disabled: boolean;
-    emoji?: GuildButtonEmoji;
-    url?: string;
-    custom_id: string;
+export default class EasyMessageButton extends MessageButton {
+    onClick?: (data: ButtonInteraction, menu: EasyMessageButton) => void;
+    buttonListener?: (data: ButtonInteraction) => void;
     constructor(data: MessageButtonConstructor);
-    get disposed(): boolean;
-    dispose(): boolean;
 }
 export {};

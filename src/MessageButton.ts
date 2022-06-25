@@ -1,57 +1,51 @@
-import { GuildButtonEmoji, MessageComponent, MessageButtonStyles } from "discord-buttons";
+import { APIPartialEmoji } from "discord-api-types/v10";
+import { ButtonInteraction, GuildEmoji, MessageButton } from "discord.js";
+import { MessageButtonStyles } from "discord.js/typings/enums";
 import { listeners } from ".";
-import { randomString } from "stuffs";
 
-interface MessageButtonConstructor {
-  style?: MessageButtonStyles;
-  label: string;
-  disabled?: boolean;
-  emoji?: GuildButtonEmoji;
-  url?: string;
-  id?: string;
-  onClick?: (data: MessageComponent, button: MessageButton) => any;
+function makeid(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() *
+      charactersLength));
+  }
+  return result;
 }
 
-export default class MessageButton {
+interface MessageButtonConstructor {
+  style?: "PRIMARY" | "SECONDARY" | "SUCCESS" | "DANGER" | "LINK";
+  label: string;
+  disabled?: boolean;
+  emoji?: APIPartialEmoji;
+  url?: string;
+  id?: string;
+  onClick?: (data: ButtonInteraction, menu: EasyMessageButton) => void;
+}
 
-  public type = 2;
-  public style: MessageButtonStyles;
-  public label: string;
-  public disabled: boolean = false;
-  public emoji?: GuildButtonEmoji;
-  public url?: string;
-  public custom_id: string;
-  #onClick: (data: MessageComponent, button: MessageButton) => any;
-  #buttonListener: (data: MessageComponent) => any;
-  #disposed = false;
-  constructor(data: MessageButtonConstructor) {
-    this.style = data.style || 1;
-    this.label = data.label;
-    this.disabled = Boolean(data.disabled);
-    this.emoji = data.emoji || null;
-    this.url = data.url;
-    
-    let id = data.id || `ei:b:${randomString(16)}`;
-    this.custom_id = id;
-
-    if (typeof data.onClick == "function") {
-      this.#onClick = data.onClick;
-      this.#buttonListener = (data) => {
-        if (data.id != id) return;
-        this.#onClick(data, this);
+export default class EasyMessageButton extends MessageButton {
+  onClick?: (data: ButtonInteraction, menu: EasyMessageButton) => void;
+  buttonListener?: (data: ButtonInteraction) => void;
+   constructor(data: MessageButtonConstructor) {
+      super();
+      this.setStyle(data.style || "PRIMARY")
+     // this.style = data.style || 1;
+      this.label = data.label;
+      this.disabled = Boolean(data.disabled);
+      this.emoji = data.emoji || null;
+      this.url = data.url;
+      
+      let id = data.id || `ei:b:${makeid(16)}`;
+      this.customId = id;
+  
+      if (typeof data.onClick == "function") {
+        this.onClick = data.onClick;
+        this.buttonListener = (data) => {
+          if (data.customId != id) return;
+          this.onClick(data, this);
+        }
+        listeners.buttons.add(this.buttonListener);
       }
-      listeners.clickButton.add(this.#buttonListener);
-    }
-  }
-
-  get disposed() {
-    return this.#disposed;
-  }
-
-  dispose() {
-    if (this.#disposed) return false;
-    listeners.clickButton.delete(this.#buttonListener);
-    this.#disposed = true;
-    return true;
-  }
+   }
 }
