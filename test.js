@@ -65,4 +65,4 @@ client.on("message", (msg) => {
 })
 
 console.log("woooooooooooo")
-client.login("Njc2ODQwMTU4MDc0NjM0MjQw.GhLyCp.0syq2An103dTUXCJReRjbt7uUe1ZbmWVVQzr5s")
+client.login()
