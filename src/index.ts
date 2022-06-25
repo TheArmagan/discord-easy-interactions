@@ -15,8 +15,6 @@ function registerClient(client: Client) {
       });
     }
     if (interaction.isSelectMenu()) {
-      console.log(interaction)
-      console.log(listeners.menus)
       listeners.menus.forEach((cb) => {
         cb(interaction);
       });

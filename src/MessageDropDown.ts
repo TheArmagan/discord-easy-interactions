@@ -2,17 +2,9 @@ import { Serializable } from "child_process";
 import { MessageSelectMenu, MessageSelectOption, SelectMenuInteraction } from "discord.js";
 import { MessageButtonStyles } from "discord.js/typings/enums";
 import { listeners } from "./index";
+import makeId from "./makeId";
 
-function makeid(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() *
-      charactersLength));
-  }
-  return result;
-}
+
 interface SelectOption extends MessageSelectOption {
   onSelect?: (data: SelectMenuInteraction, menu: EasyMessageDropDown) => void;
 }
@@ -39,7 +31,7 @@ export default class EasyMessageDropDown extends MessageSelectMenu {
       return opt;
     });
 
-    let id = data.id || `ei:dd:${makeid(16)}`;
+    let id = data.id || `ei:dd:${makeId(16)}`;
     this.customId = id;
     this.onUpdate = data.onUpdate;
 

@@ -2,17 +2,7 @@ import { APIPartialEmoji } from "discord-api-types/v10";
 import { ButtonInteraction, GuildEmoji, MessageButton } from "discord.js";
 import { MessageButtonStyles } from "discord.js/typings/enums";
 import { listeners } from ".";
-
-function makeid(length) {
-  var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for (var i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() *
-      charactersLength));
-  }
-  return result;
-}
+import makeId from "./makeId";
 
 interface MessageButtonConstructor {
   style?: "PRIMARY" | "SECONDARY" | "SUCCESS" | "DANGER" | "LINK";
@@ -36,7 +26,7 @@ export default class EasyMessageButton extends MessageButton {
       this.emoji = data.emoji || null;
       this.url = data.url;
       
-      let id = data.id || `ei:b:${makeid(16)}`;
+      let id = data.id || `ei:b:${makeId(16)}`;
       this.customId = id;
   
       if (typeof data.onClick == "function") {
